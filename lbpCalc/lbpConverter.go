@@ -7,11 +7,11 @@ import (
 	"image/color"
 )
 
-var pixelNeighboursY = []int{-1,-1,-1,0,1,1,10}
+var pixelNeighboursY = []int{-1,-1,-1,0,1,1,1,0}
 var pixelNeighboursX = []int{-1,0,1,1,1,0,-1,-1}
 
 // ConvertGrayImgToLbpImg converts an Gray16 image to an lbp image (with 256) colors.
-func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper, uniformList []byte) (*model.ImageWrapper,error){
+func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper,error){
 	if grayImg, ok := (*imgWrapper).Img.(*image.Gray16); ok {
 		lbpMatrix := createlbpMatrix(grayImg)
 		imgWrapper.Img = createImgFromByteMatrix(lbpMatrix)

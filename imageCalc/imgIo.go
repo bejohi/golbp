@@ -15,7 +15,7 @@ import (
 // LoadImage loads an image from the harddrive, if the format is supported.
 // JPEG and PNG are supported.
 // Returns a pointer to an Img object which holds the image itself and also an imgage config struct.
-func LoadImage(imgPath string) (*ImageWrapper, error){
+func LoadImage(imgPath string) (*model.ImageWrapper, error){
 
 	imgType := getImageTypeByFileName(imgPath)
 
