@@ -8,6 +8,7 @@ import (
 	"github.com/bejohi/golbp/helper"
 	"strings"
 	"errors"
+	"github.com/bejohi/golbp/model"
 )
 
 // TODO [bejohi] This functions violates the open closed principle, do it better.
@@ -43,13 +44,13 @@ func LoadImage(imgPath string) (*ImageWrapper, error){
 	if imgError != nil {
 		imgError = errors.New("LoadImage: " + imgError.Error())
 	}
-	return &ImageWrapper{image:img,imgType:imgType,fullPath:imgPath}, imgError
+	return &model.ImageWrapper{Img:img,Type:imgType,FullPath:imgPath}, imgError
 }
 
 // TODO [bejohi] This functions violates the open closed principle, do it better.
 // SaveImg writes an image to an file on the harddrive.
 // The filePath string from the struct is used as fully qualified name of the new file.
-func SaveImg(img *ImageWrapper, imgPath string) error {
+func SaveImg(img *model.ImageWrapper, imgPath string) error {
 	newImgFile, err := os.Create(imgPath)
 	if err != nil {
 		return err
@@ -58,11 +59,11 @@ func SaveImg(img *ImageWrapper, imgPath string) error {
 	defer newImgFile.Close()
 
 	var imgError error = nil
-	if img.imgType == JPEG {
+	if img.Type == JPEG {
 		helper.Log.Info("JPEG saved at " + imgPath)
-		imgError = jpeg.Encode(newImgFile,img.image,nil)
-	} else if img.imgType == PNG{
-		imgError = png.Encode(newImgFile,img.image)
+		imgError = jpeg.Encode(newImgFile,img.Img,nil)
+	} else if img.Type == PNG{
+		imgError = png.Encode(newImgFile,img.Img)
 	} else {
 		return errors.New("The image type was not supported!")
 	}
