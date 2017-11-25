@@ -1,10 +1,7 @@
 package lbpCalc
 
 import (
-	"github.com/bejohi/golbp/model"
 	"image"
-	"errors"
-	"image/color"
 )
 
 var pixelNeighboursY = []int{-1,-1,-1,0,1,1,1,0}
