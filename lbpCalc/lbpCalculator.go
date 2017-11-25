@@ -10,30 +10,8 @@ import (
 var pixelNeighboursY = []int{-1,-1,-1,0,1,1,1,0}
 var pixelNeighboursX = []int{-1,0,1,1,1,0,-1,-1}
 
-// ConvertGrayImgToLbpImg converts an Gray16 image to an lbp image (with 256) colors.
-func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper,error){
-	if grayImg, ok := (*imgWrapper).Img.(*image.Gray16); ok {
-		lbpMatrix := createlbpMatrix(grayImg)
-		imgWrapper.Img = createImgFromByteMatrix(lbpMatrix)
-		return imgWrapper,nil
-	}
-	return nil, errors.New("ConvertGrayImgToLbpImg: The given image was not a Gray16 image.")
-}
-
-func createImgFromByteMatrix(matrix *[][]byte) *image.Gray{
-	width := len((*matrix)[0])
-	height := len(*matrix)
-	grayImg := image.NewGray(image.Rect(0,0,width,height))
-	for y := 0; y < height; y++{
-		for x := 0; x < width; x++ {
-			colorValue := color.Gray{(*matrix)[y][x]}
-			grayImg.Set(x,y,colorValue)
-		}
-	}
-	return grayImg
-}
-
-func createlbpMatrix(img *image.Gray16) *[][]byte{
+// CreateLbpMatrix creates a 2d matrix of bytes from a given Gray16 image.
+func CreateLbpMatrix(img *image.Gray16) *[][]byte{
 	width := (*img).Bounds().Max.X
 	height := (*img).Bounds().Max.Y
 	lbpArray := make([][]byte,height)
@@ -50,6 +28,8 @@ func createlbpMatrix(img *image.Gray16) *[][]byte{
 	return &lbpArray
 }
 
+// calculateLbpPatternForPixel compares an pixel at the given position with its 8 neighbours and returns the
+// lbp pattern as an byte.
 func calculateLbpPatternForPixel(img *image.Gray16,x int,y int) byte {
 	var pattern byte = 0
 	for pos := uint(0); pos < 8; pos++{
@@ -65,13 +45,13 @@ func calculateLbpPatternForPixel(img *image.Gray16,x int,y int) byte {
 			// 0
 			pattern &= ^(1 << pos)
 		}
-
-
 	}
-
 	return pattern
 }
 
+
+// pointNotAtBorder returns true if a given point is not a the matrix border (which is represented with its width
+// and height)
 func pointNotAtBorder(x int, y int, width int, height int) bool {
 	if x <= 0 || y <= 0{
 		return false
