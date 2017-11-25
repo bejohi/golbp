@@ -17,7 +17,7 @@ func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper
 		imgWrapper.Img = createImgFromByteMatrix(lbpMatrix)
 		return imgWrapper,nil
 	}
-	return nil, errors.New("ConvertGrayImgToLbpImg: The given image was not an Gray16 image.")
+	return nil, errors.New("ConvertGrayImgToLbpImg: The given image was not a Gray16 image.")
 }
 
 func createImgFromByteMatrix(matrix *[][]byte) *image.Gray{

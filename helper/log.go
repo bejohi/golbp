@@ -8,50 +8,61 @@ import (
 
 // Log is the default Logger object.
 var Log = Logger{
-	logPath: "default.log",
-	debugLevel:DebugLevelHigh,
+	LogPath:    "default.log",
+	DebugLevel: DebugLevelLogEverything,
 }
 
 const (
-	DebugLevelHigh = 10
-	DebugLevelLow = 1
-	DebugLevelOff = 0
+	DebugLevelLogEverything = 10
+	DebugLevelLogErrorsOnly = 5
+	DebugLevelLogNothing    = 0
 )
 
 
 // Logger is a lightweight struct to provide logging due runtime.
 type Logger struct {
-	logPath string
-	debugLevel uint8
+	LogPath    string
+	DebugLevel uint8
 }
 
-// Info logs Debug Information on harddrive and stdout.
-func (log Logger)Info(msg string){
+// LogInfo logs Debug Information on harddrive and stdout.
+func LogInfo(msg string){
+
+	if Log.DebugLevel < DebugLevelLogEverything {
+		return
+	}
+
 	msg = time.Now().String() + " - " + "Info: " + msg
 	fmt.Println(msg)
-	log.writeToLogFile(msg)
+	writeToLogFile(msg)
 }
 
-// Error logs Error Information on harddrive and stdout.
-func (log Logger)Error(msg string){
+// LogError logs Error Information on harddrive and stdout.
+func LogError(msg string){
+
+	if Log.DebugLevel < DebugLevelLogErrorsOnly {
+		return
+	}
+
 	msg = time.Now().String() + " - " + "ERROR: " + msg
 	fmt.Println(msg)
-	log.writeToLogFile(msg)
+	writeToLogFile(msg)
 }
 
-// writeTiLogFile appends a given string as an newline to the logfile.
-func (log Logger)writeToLogFile(msg string){
-	logFile, err := os.OpenFile(log.logPath, os.O_RDWR|os.O_APPEND, 0660)
+// writeTiLogFile appends a given string as an newline to the logfile, which is stored in the Log object.
+// if no logfile exists it will be created.
+func writeToLogFile(msg string){
+	logFile, err := os.OpenFile(Log.LogPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0666)
 	if err != nil {
 
-		fmt.Println("FATAL ERROR: could't write to logfile at location '" + log.logPath + "' because " + err.Error())
+		fmt.Println("FATAL ERROR: could't write to logfile at location '" + Log.LogPath + "' because " + err.Error())
 		return
 	}
 
 	defer logFile.Close()
 
 	if _, err = logFile.WriteString(msg + "\n"); err != nil {
-		fmt.Println("FATAL ERROR: could't write to logfile at location '" + log.logPath + "' because" + err.Error())
+		fmt.Println("FATAL ERROR: could't write to logfile at location '" + Log.LogPath + "' because" + err.Error())
 	}
 }
 
