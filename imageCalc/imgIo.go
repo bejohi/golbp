@@ -3,7 +3,6 @@ package imageCalc
 import (
 	"image"
 	"os"
-	"github.com/bejohi/golbp/helper"
 	"strings"
 	"errors"
 	"github.com/bejohi/golbp/model"
@@ -18,7 +17,6 @@ func LoadImage(imgPath string) (*model.ImageWrapper, error){
 	file, err := os.Open(imgPath)
 
 	if err != nil {
-		helper.LogError("LoadImage: " + err.Error())
 		return nil, err
 	}
 

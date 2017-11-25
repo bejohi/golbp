@@ -7,7 +7,7 @@ import (
 	"github.com/bejohi/golbp/imageCalc"
 )
 
-// ConvertGrayImgToLbpImg converts an Gray16 image to an lbp image (with 256) colors.
+// ConvertGrayImgToLbpImg converts an Gray16 image to an lbp image, with 256 colors.
 func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper,error){
 	if grayImg, ok := (*imgWrapper).Img.(*image.Gray16); ok {
 		lbpMatrix := CreateLbpMatrix(grayImg)
@@ -17,6 +17,7 @@ func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper
 	return nil, errors.New("ConvertGrayImgToLbpImg: The given image was not a Gray16 image.")
 }
 
+// ConvertGrayImgToUniformImg converts an Gray16 image to an uniform image, with 1 color.
 func ConvertGrayImgToUniformImg(imgWrapper *model.ImageWrapper, uniform model.LbpUniform) (*model.ImageWrapper,error){
 	if grayImg, ok := (*imgWrapper).Img.(*image.Gray16); ok {
 		uniformMatrix := CreateUniformMatrix(grayImg, uniform)

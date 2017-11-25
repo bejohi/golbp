@@ -26,6 +26,7 @@ func (uniform EndOfEdgeUniform)GetName() string {
 	return "End of Edge Uniform"
 }
 
+// IsByteInUniform checks whether the given byte is in the uniform list, or not.
 func (uniform EndOfEdgeUniform)IsByteInUniform(toProof byte) bool{
 	for _, uniform := range *(uniform.GetUniformList()) {
 		if uniform == toProof{

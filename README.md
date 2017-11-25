@@ -9,11 +9,9 @@ algorithm in go.
 4. Convert byte and bool 2 matrix back to an img and save it.
 
 ## Module overview
-1. __cmd:__ provides summary functions to run operations as bundles (not so important).
-2. __helper:__ provides runtime helper functions, such as a lightweight logging provider (not so important).
-3. __imageCalc:__ provides image conversion functions (important if you don't have grayscaled images already).
-4. __lbpCalc:__ the core of this repository, where lbp and lbp-uniform calculation functions are placed (important).
-5. __model:__ holds structs and interfaces for meta informations, such as img types, or lbp-uniform types.
+1. __imageCalc:__ provides image conversion functions (important if you don't have grayscaled images already).
+2. __lbpCalc:__ the core of this repository, where lbp and lbp-uniform calculation functions are placed (important).
+3. __model:__ holds structs and interfaces for meta informations, such as img types, or lbp-uniform types.
 
 ## Supported uniform types
 _A list of all lbp-uniform types we already provide (with a own struct)_

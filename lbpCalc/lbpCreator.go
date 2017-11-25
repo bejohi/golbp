@@ -1,9 +1,8 @@
-package cmd
+package lbpCalc
 
 import (
 	"github.com/bejohi/golbp/imageCalc"
 	"errors"
-	"github.com/bejohi/golbp/lbpCalc"
 	"github.com/bejohi/golbp/model"
 )
 
@@ -19,7 +18,7 @@ func CreateLbpImgForGivenImg(imgPath string, newImgPath string) error {
 
 	grayImg:= imageCalc.ConvertRgbaToGrayImg(imgWrapper)
 
-	lbpImg, lbpErr := lbpCalc.ConvertGrayImgToLbpImg(grayImg)
+	lbpImg, lbpErr := ConvertGrayImgToLbpImg(grayImg)
 
 	if lbpErr != nil {
 		lbpErr = errors.New("CreateLbpImgForGivenImg: " + lbpErr.Error())
@@ -39,7 +38,7 @@ func CreateUniformImgForGivenImg(imgPath string, newImgPath string, uniform mode
 
 	grayImg:= imageCalc.ConvertRgbaToGrayImg(imgWrapper)
 
-	matrixImg, lbpErr := lbpCalc.ConvertGrayImgToUniformImg(grayImg,uniform)
+	matrixImg, lbpErr := ConvertGrayImgToUniformImg(grayImg,uniform)
 
 	if lbpErr != nil {
 		lbpErr = errors.New("CreateLbpImgForGivenImg: " + lbpErr.Error())
