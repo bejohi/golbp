@@ -50,7 +50,7 @@ func CreateLbpMatrix(img *image.Gray16) *[][]byte{
 }
 
 // calculateLbpPatternForPixel compares an pixel at the given position with its 8 neighbours and returns the
-// lbp pattern as an byte.
+// lbp pattern as a byte.
 func calculateLbpPatternForPixel(img *image.Gray16,x int,y int) byte {
 	var pattern byte = 0
 	for pos := uint(0); pos < 8; pos++{

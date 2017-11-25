@@ -9,9 +9,9 @@ import (
 	"github.com/bejohi/golbp/model"
 )
 
-// LoadImage loads an image from the harddrive, if the format is supported.
+// LoadImage loads an image from the disk, if the format is supported.
 // JPEG and PNG are supported.
-// Returns a pointer to an Img object which holds the image itself and also an imgage config struct.
+// Returns a pointer to an Img object which holds the image itself and also an image config struct.
 func LoadImage(imgPath string) (*model.ImageWrapper, error){
 	imgType := getImageTypeByFileName(imgPath)
 
