@@ -5,12 +5,7 @@ import (
 	"image"
 )
 
-const (
-	NONE = "NOIMGTYPE"
-	JPEG = "JPEG"
-	PNG = "PNG"
-)
-
+// ImgType provides Methods to run image type unique operations.
 type ImgType interface {
 	Decode(file *os.File) (image.Image,error)
 	Encode(file *os.File, img image.Image) error

@@ -2,12 +2,36 @@ package lbpCalc
 
 import (
 	"image"
+	"github.com/bejohi/golbp/model"
 )
 
 var pixelNeighboursY = []int{-1,-1,-1,0,1,1,1,0}
 var pixelNeighboursX = []int{-1,0,1,1,1,0,-1,-1}
 
-// CreateLbpMatrix creates a 2d matrix of bytes from a given Gray16 image.
+// CreateUniformMatrix creates a 2d binary matrix for the given uniform struct.
+// A 'true' in a cell means, that the pixel lbp pattern matches one of the given lbp- uniform numbers from the
+// uniform object. This function is rly fast, since it is not necessary to create an lbp matrix in one step
+// and calculate the pattern in the next one (the speed is ~ 2x as fast as the other approach).
+func CreateUniformMatrix(img *image.Gray16, uniform model.LbpUniform)*[][]bool {
+	width := (*img).Bounds().Max.X
+	height := (*img).Bounds().Max.Y
+	uniformArray:= make([][]bool,height)
+	for y := 0; y < height; y++{
+		uniformArray[y] = make([]bool,width)
+		for x := 0; x < width; x++{
+			if !pointNotAtBorder(x,y,width,height){
+				uniformArray[y][x] = false
+				continue
+			}
+			lbpByte := calculateLbpPatternForPixel(img,x,y)
+			uniformArray[y][x] = uniform.IsByteInUniform(lbpByte)
+		}
+	}
+	return &uniformArray
+}
+
+// CreateLbpMatrix creates a 2d matrix of bytes from a given Gray16 image. Every byte in a cell represents a lbp
+// value (e.g 0b01001010).
 func CreateLbpMatrix(img *image.Gray16) *[][]byte{
 	width := (*img).Bounds().Max.X
 	height := (*img).Bounds().Max.Y
