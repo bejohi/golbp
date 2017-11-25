@@ -13,7 +13,7 @@ func GetAllJpgPathsFromFolderPath(folderPath string) (*[]string,error) {
 		err = errors.New("GetAllJpgPathsFromFolderPath: " + err.Error())
 	}
 
-	imgPathsArr := []string {}
+	var imgPathsArr []string
 
 	for _, fileInfo := range filesInfos {
 		fileName := fileInfo.Name()

@@ -6,6 +6,8 @@ import (
 	"github.com/bejohi/golbp/lbpCalc"
 )
 
+// CreateLbpImgForGivenImg loads an given rgb image from the disk, converts it to an lbp image and saves the newly
+// created image at the newImgPath location.
 func CreateLbpImgForGivenImg(imgPath string, newImgPath string) error {
 	imgWrapper, err := imageCalc.LoadImage(imgPath)
 
