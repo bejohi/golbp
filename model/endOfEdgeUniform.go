@@ -14,11 +14,11 @@ type EndOfEdgeUniform struct {
 // 0b01100000 == 96
 // 0b11000000 == 192
 // 0b10000001 == 65
-func (uniform EndOfEdgeUniform)GetUniformList() []byte{
+func (uniform EndOfEdgeUniform)GetUniformList() *[]byte{
 	byteArr := []byte{
 		3,6,12,24,48,96,192,65,
 	}
-	return byteArr
+	return &byteArr
 }
 
 // GetName returns a spellable name of the EndOfEdgeUniform
@@ -27,7 +27,7 @@ func (uniform EndOfEdgeUniform)GetName() string {
 }
 
 func (uniform EndOfEdgeUniform)IsByteInUniform(toProof byte) bool{
-	for _, uniform := range uniform.GetUniformList() {
+	for _, uniform := range *(uniform.GetUniformList()) {
 		if uniform == toProof{
 			return true
 		}

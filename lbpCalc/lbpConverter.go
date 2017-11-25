@@ -17,3 +17,11 @@ func ConvertGrayImgToLbpImg(imgWrapper *model.ImageWrapper) (*model.ImageWrapper
 	return nil, errors.New("ConvertGrayImgToLbpImg: The given image was not a Gray16 image.")
 }
 
+func ConvertGrayImgToUniformImg(imgWrapper *model.ImageWrapper, uniform model.LbpUniform) (*model.ImageWrapper,error){
+	if grayImg, ok := (*imgWrapper).Img.(*image.Gray16); ok {
+		uniformMatrix := CreateUniformMatrix(grayImg, uniform)
+		imgWrapper.Img = imageCalc.CreateBinaryImageFromBoolMatrix(uniformMatrix)
+		return imgWrapper,nil
+	}
+	return nil, errors.New("ConvertGrayImgToUniformImg: The given image was not a Gray16 image.")
+}

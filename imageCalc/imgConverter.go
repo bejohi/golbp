@@ -38,7 +38,7 @@ func CreateGrayImgFromByteMatrix(matrix *[][]byte) *image.Gray{
 }
 
 // CreateBinaryImageFromBoolMatrix transforms a given 2d bool matrix into a gray picture and returns it.
-// Every 'true' will be represented as the maxValue from uint8, and every 'false' as 0.
+// Every 'false' will be represented as the maxValue from uint8, and every 'true' as 0.
 // So the returned picture is mono colored.
 func CreateBinaryImageFromBoolMatrix(matrix *[][]bool)*image.Gray {
 	width := len((*matrix)[0])
@@ -46,9 +46,9 @@ func CreateBinaryImageFromBoolMatrix(matrix *[][]bool)*image.Gray {
 	grayImg := image.NewGray(image.Rect(0,0,width,height))
 	for y := 0; y < height; y++{
 		for x := 0; x < width; x++ {
-			monoColor := uint8(0)
+			monoColor := uint8(math.MaxUint8)
 			if (*matrix)[y][x] {
-				monoColor = math.MaxUint8
+				monoColor = 0
 			}
 			colorValue := color.Gray{monoColor}
 			grayImg.Set(x,y,colorValue)
