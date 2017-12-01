@@ -1,4 +1,4 @@
-package imageCalc
+package lbpCalc
 
 import (
 	"image"
@@ -23,8 +23,8 @@ func ConvertRgbaToGrayImg(img *model.ImageWrapper) *model.ImageWrapper {
 	return img
 }
 
-// CreateGrayImgFromByteMatrix transforms a given 2d byte matrix into a gray picture and returns it.
-func CreateGrayImgFromByteMatrix(matrix *[][]byte) *image.Gray{
+// createGrayImgFromByteMatrix transforms a given 2d byte matrix into a gray picture and returns it.
+func createGrayImgFromByteMatrix(matrix *[][]byte) *image.Gray{
 	width := len((*matrix)[0])
 	height := len(*matrix)
 	grayImg := image.NewGray(image.Rect(0,0,width,height))
@@ -37,10 +37,10 @@ func CreateGrayImgFromByteMatrix(matrix *[][]byte) *image.Gray{
 	return grayImg
 }
 
-// CreateBinaryImageFromBoolMatrix transforms a given 2d bool matrix into a gray picture and returns it.
+// createBinaryImageFromBoolMatrix transforms a given 2d bool matrix into a gray picture and returns it.
 // Every 'false' will be represented as the maxValue from uint8, and every 'true' as 0.
 // So the returned picture is mono colored.
-func CreateBinaryImageFromBoolMatrix(matrix *[][]bool)*image.Gray {
+func createBinaryImageFromBoolMatrix(matrix *[][]bool)*image.Gray {
 	width := len((*matrix)[0])
 	height := len(*matrix)
 	grayImg := image.NewGray(image.Rect(0,0,width,height))

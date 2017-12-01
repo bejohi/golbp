@@ -8,11 +8,11 @@ import (
 var pixelNeighboursY = []int{-1,-1,-1,0,1,1,1,0}
 var pixelNeighboursX = []int{-1,0,1,1,1,0,-1,-1}
 
-// CreateUniformMatrix creates a 2d binary matrix for the given uniform struct.
+// createUniformMatrix creates a 2d binary matrix for the given uniform struct.
 // A 'true' in a cell means, that the pixel lbp pattern matches one of the given lbp- uniform numbers from the
 // uniform object. This function is rly fast, since it is not necessary to create an lbp matrix in one step
 // and calculate the pattern in the next one (the speed is ~ 2x as fast as the other approach).
-func CreateUniformMatrix(img *image.Gray16, uniform model.LbpUniform)*[][]bool {
+func createUniformMatrix(img *image.Gray16, uniform model.LbpUniform)*[][]bool {
 	width := (*img).Bounds().Max.X
 	height := (*img).Bounds().Max.Y
 	uniformArray:= make([][]bool,height)
